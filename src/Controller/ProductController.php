@@ -13,22 +13,6 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 class ProductController extends AbstractController
 {
     /**
-     * 
-     * @Rest\Get(
-     *     path = "/product/{id}",
-     *     name = "product_show",
-     *     requirements = {"id"="\d+"}
-     * )
-     * @Rest\View(
-     *     StatusCode = 200
-     * )
-     */
-    public function show(Product $product)
-    {
-        return $product;
-    }
-
-    /**
      * @Rest\Get(
      *     path = "/products",
      *     name = "product_list",
@@ -48,5 +32,21 @@ class ProductController extends AbstractController
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
+    }
+    	
+    /**
+     * 
+     * @Rest\Get(
+     *     path = "/product/{id}",
+     *     name = "product_show",
+     *     requirements = {"id"="\d+"}
+     * )
+     * @Rest\View(
+     *     StatusCode = 200
+     * )
+     */
+    public function show(Product $product)
+    {
+        return $product;
     }
 }

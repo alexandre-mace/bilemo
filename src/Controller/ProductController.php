@@ -8,25 +8,35 @@ use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\Response;
+use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\View;
 
 class ProductController extends AbstractController
 {
     /**
-     * @Route("/product/{id}", name="product_show")
+     * @Get(
+     *     path = "/product/{id}",
+     *     name = "product_show",
+     *     requirements = {"id"="\d+"}
+     * )
+     * @View(
+     *     statusCode = 200
+     * )
      */
     public function show(Product $product)
     {
-		$serializer = SerializerBuilder::create()->build();
-    	$data = $serializer->serialize($product, 'json');
-
-    	$response = new Response($data);
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
+        return $product;
     }
 
     /**
-     * @Route("/products", name="product_list")
+     * @Get(
+     *     path = "/products",
+     *     name = "product_list",
+     * )
+     * @View(
+     *     statusCode = 200
+     * )
      */
     public function list(EntityManagerInterface $manager)
     {

@@ -58,4 +58,15 @@ class Kernel extends BaseKernel
         $routes->import($confDir.'/{routes}/'.$this->environment.'/**/*'.self::CONFIG_EXTS, '/', 'glob');
         $routes->import($confDir.'/{routes}'.self::CONFIG_EXTS, '/', 'glob');
     }
+
+    public function process(ContainerBuilder $container)
+    {
+        $exceptionSubscriberDefinition = $container->findDefinition('app.exception_subscriber');
+        $normalizers = $container->findTaggedServiceIds('app.normalizer');
+
+        foreach ($normalizers as $id => $tags) {
+            $exceptionSubscriberDefinition->addMethodCall('addNormalizer', [new Reference($id)]);
+        }
+ 
+    }
 }

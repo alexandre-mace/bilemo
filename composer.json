@@ -7,6 +7,7 @@
         "ext-iconv": "*",
         "doctrine/annotations": "^1.6",
         "friendsofsymfony/rest-bundle": "^2.4",
+        "jms/serializer": "^1.13",
         "jms/serializer-bundle": "^2.4",
         "sensio/framework-extra-bundle": "^5.1",
         "symfony/asset": "*",
@@ -24,7 +25,8 @@
         "symfony/twig-bundle": "*",
         "symfony/validator": "*",
         "symfony/web-link": "*",
-        "symfony/yaml": "*"
+        "symfony/yaml": "*",
+        "willdurand/hateoas-bundle": "^1.4"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.0",

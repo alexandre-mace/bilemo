@@ -24,14 +24,7 @@ class ProductController extends AbstractController
     public function list(EntityManagerInterface $manager)
     {
     	$products = $manager->getRepository(Product::class)->findAll();
-    	
-    	$serializer = SerializerBuilder::create()->build();
-    	$data = $serializer->serialize($products, 'json');
-
-    	$response = new Response($data);
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
+        return $products;
     }
     	
     /**

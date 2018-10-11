@@ -4,18 +4,14 @@ namespace App\Controller;
 
 use App\Entity\User;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Validator\ConstraintViolationList;
-use JMS\Serializer\SerializerBuilder;
-use FOS\RestBundle\Controller\FOSRestController;
-use Symfony\Component\HttpFoundation\Response;
+use App\Handler\AddUserHandler;
+use App\Handler\DeleteUserHandler;
 
-
-class UserController extends FOSRestController
+class UserController extends AbstractController
 {
     /**
      * @Rest\Get(
@@ -29,14 +25,7 @@ class UserController extends FOSRestController
     public function list(EntityManagerInterface $manager)
     {
     	$users = $manager->getRepository(User::class)->findAll();
-    	
-    	$serializer = SerializerBuilder::create()->build();
-    	$data = $serializer->serialize($users, 'json');
-
-    	$response = new Response($data);
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
+        return $users;
     }
 
     /**
@@ -63,16 +52,11 @@ class UserController extends FOSRestController
      * @Rest\View(StatusCode = 201)
      * @ParamConverter("user", converter="fos_rest.request_body")
      */
-    public function add(User $user, EntityManagerInterface $manager, ConstraintViolationList $violations)
+    public function add(User $user, AddUserHandler $handler, ConstraintViolationList $violations)
     {
-        if (count($violations)) {
-            return $this->view($violations, Response::HTTP_BAD_REQUEST);
+        if ($handler->handle($violations, $user)) {
+            return $user;
         }
-
-    	$manager->persist($user);
-    	$manager->flush();
-
-        return $this->view($user, Response::HTTP_CREATED, ['Location' => $this->generateUrl('user_show', ['id' => $user->getId(), UrlGeneratorInterface::ABSOLUTE_URL])]);
     }
 
 	/**
@@ -83,9 +67,8 @@ class UserController extends FOSRestController
      * )
      * @Rest\View(StatusCode = 204)
      */
-    public function delete(User $user, EntityManagerInterface $manager)
+    public function delete(User $user, EntityManagerInterface $manager, DeleteUserHandler $handler)
     {
-    	$manager->remove($user);
-    	$manager->flush($user);
+        $handler->handle($user);
     }
 }

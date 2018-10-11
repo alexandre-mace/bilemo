@@ -13,6 +13,13 @@ fos_rest:
         rules:
             - { path: '^/', priorities: ['json'], fallback_format: 'json' }
     param_fetcher_listener: force
+    exception:
+        enabled: true
+        exception_controller: 'fos_rest.exception.controller:showAction'     
+        codes:
+           { App\Exception\ResourceValidationException: 400 }
+        messages:
+           { App\Exception\ResourceValidationException: true }
 #    param_fetcher_listener:  true
 #    allowed_methods_listener:  true
 #    routing_loader: true

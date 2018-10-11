@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Hateoas\Configuration\Annotation as Hateoas;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -35,31 +36,37 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Serializer\Since("1.0")
      */
     private $model;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Serializer\Since("1.0")
      */
     private $brand;
 
     /**
      * @ORM\Column(type="text")
+     * @Serializer\Since("1.0")
      */
     private $description;
 
     /**
      * @ORM\Column(type="integer")
+     * @Serializer\Since("1.0")
      */
     private $stock;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Serializer\Since("1.0")
      */
     private $color;
 
     /**
      * @ORM\Column(type="decimal", precision=6, scale=2)
+     * @Serializer\Since("1.0")
      */
     private $price;
 

@@ -1,14 +1,14 @@
 client_1:
-  name: "Fnac"
+  username: "fnac"
 
 client_2:
-  name: "Darty"
+  username: "darty"
 
 client_3:
-  name: "Rue du commerce"
+  username: "rue_du_commerce"
 
 client_4:
-  name: "free"
+  username: "free"
 
 client_5:
-  name: "SFR"
+  username: "sfr"

@@ -7,9 +7,17 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Yaml\Yaml;
 use App\Entity\Client;
 use App\Entity\Product;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
+    private $encoder;
+
+    public function __construct(UserPasswordEncoderInterface $encoder)
+    {
+        $this->encoder = $encoder;
+    }    
+    
     public function load(ObjectManager $manager)
     {
     	$clients = Yaml::parseFile('src/DataFixtures/clients.yaml');
@@ -17,7 +25,11 @@ class AppFixtures extends Fixture
 
         foreach ($clients as $clientData) {
         	$client = new Client;
-            $client->setName($clientData['name']);
+            $client->setUsername($clientData['username']);
+            
+            $password = $this->encoder->encodePassword($client, 'password');
+            $client->setPassword($password);            
+            
             $manager->persist($client);
         }
 

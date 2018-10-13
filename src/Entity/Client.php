@@ -7,9 +7,11 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Security\Core\User\UserInterface;
+use JMS\Serializer\Annotation\ExclusionPolicy;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
+ * @ExclusionPolicy("all")
  */
 class Client implements UserInterface, \Serializable
 {
@@ -23,8 +25,9 @@ class Client implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=25, unique=true)
      * @Serializer\Since("1.0")
+     * @Serializer\Expose()
      */
-    private $username;
+    private $name;
 
     /**
      * @ORM\Column(type="string", length=64)
@@ -54,7 +57,7 @@ class Client implements UserInterface, \Serializable
 
     public function getUsername()
     {
-        return $this->username;
+        return $this->name;
     }
 
     public function getSalt()
@@ -83,7 +86,7 @@ class Client implements UserInterface, \Serializable
     {
         return serialize(array(
             $this->id,
-            $this->username,
+            $this->name,
             $this->password,
             // see section on salt below
             // $this->salt,
@@ -95,7 +98,7 @@ class Client implements UserInterface, \Serializable
     {
         list (
             $this->id,
-            $this->username,
+            $this->name,
             $this->password,
             // see section on salt below
             // $this->salt
@@ -138,9 +141,9 @@ class Client implements UserInterface, \Serializable
         return $this->id;
     }
 
-    public function setUsername(string $username): self
+    public function setName(string $name): self
     {
-        $this->username = $username;
+        $this->name = $name;
 
         return $this;
     }

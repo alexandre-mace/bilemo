@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Client;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Doctrine\ORM\EntityManagerInterface;
@@ -10,6 +11,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Validator\ConstraintViolationList;
 use App\Handler\AddUserHandler;
 use App\Handler\DeleteUserHandler;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 
 class UserController extends AbstractController
 {
@@ -21,10 +24,11 @@ class UserController extends AbstractController
      * @Rest\View(
      *     StatusCode = 200
      * )
+     * @Security("is_granted('ROLE_USER')")   
      */
     public function list(EntityManagerInterface $manager)
     {
-    	$users = $manager->getRepository(User::class)->findAll();
+    	$users = $manager->getRepository(User::class)->findByClient($this->getUser());
         return $users;
     }
 
@@ -33,14 +37,15 @@ class UserController extends AbstractController
      * @Rest\Get(
      *     path = "/user/{id}",
      *     name = "user_show",
-     *     requirements = {"id"="\d+"}
+     *     requirements = {"user_id"="\d+"}
      * )
      * @Rest\View(
      *     StatusCode = 200
      * )
      */
-    public function show(User $user)
+    public function show(User $user, EntityManagerInterface $manager)
     {
+        $this->denyAccessUnlessGranted('view', $user);
         return $user;
     }
 
@@ -51,6 +56,7 @@ class UserController extends AbstractController
      * )
      * @Rest\View(StatusCode = 201)
      * @ParamConverter("user", converter="fos_rest.request_body")
+     * @Security("is_granted('ROLE_USER')")   
      */
     public function add(User $user, AddUserHandler $handler, ConstraintViolationList $violations)
     {

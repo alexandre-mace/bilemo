@@ -7,7 +7,7 @@ security:
         entity_provider:
             entity:
                 class: App\Entity\Client
-                property: username
+                property: name
                 # if you're using multiple entity managers
                 # manager_name: customer
     firewalls:
@@ -17,9 +17,9 @@ security:
             stateless: true
             anonymous: true
             json_login:
-                check_path:               /login_check
-                success_handler:          lexik_jwt_authentication.handler.authentication_success
-                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+                check_path: /login_check
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
 
         api:
             pattern:   ^/

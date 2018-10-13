@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Hateoas\Configuration\Annotation as Hateoas;
 use JMS\Serializer\Annotation as Serializer;
+use JMS\Serializer\Annotation\ExclusionPolicy;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -40,9 +41,10 @@ use JMS\Serializer\Annotation as Serializer;
  *      )
  * )
  * @Hateoas\Relation(
- *     "author",
+ *     "client",
  *     embedded = @Hateoas\Embedded("expr(object.getClient())")
  * )
+ * @ExclusionPolicy("all")
  */
 class User
 {
@@ -50,6 +52,8 @@ class User
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Serializer\Since("1.0")
+     * @Serializer\Expose()
      */
     private $id;
 
@@ -60,12 +64,13 @@ class User
      *      max = 255
      * )
      * @Serializer\Since("1.0")
+     * @Serializer\Expose()
      */
     private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="users")
-     * @Serializer\Since("1.0")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $client;
 

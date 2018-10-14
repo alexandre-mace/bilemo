@@ -12,7 +12,7 @@ use Symfony\Component\Validator\ConstraintViolationList;
 use App\Handler\AddUserHandler;
 use App\Handler\DeleteUserHandler;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 
 class UserController extends AbstractController
 {
@@ -25,6 +25,7 @@ class UserController extends AbstractController
      *     StatusCode = 200
      * )
      * @Security("is_granted('ROLE_USER')")   
+     * @Cache(expires="tomorrow")
      */
     public function list(EntityManagerInterface $manager)
     {
@@ -42,6 +43,7 @@ class UserController extends AbstractController
      * @Rest\View(
      *     StatusCode = 200
      * )
+     * @Cache(expires="tomorrow")
      */
     public function show(User $user, EntityManagerInterface $manager)
     {

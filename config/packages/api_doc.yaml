@@ -1,0 +1,19 @@
+# app/config/config.yml
+nelmio_api_doc:
+    areas:
+        path_patterns: # an array of regexps
+            - ^/(?!doc)
+    documentation:
+        host: api.example.com
+        info:
+            title: Bilemo
+            description: Symfony 4 API
+            version: 1.0.0
+        securityDefinitions:
+            Bearer:
+                type: apiKey
+                description: 'Value: Bearer {jwt}'
+                name: Authorization
+                in: header
+        security:
+            - Bearer: []

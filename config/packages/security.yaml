@@ -7,7 +7,7 @@ security:
         entity_provider:
             entity:
                 class: App\Entity\Client
-                property: name
+                property: username
                 # if you're using multiple entity managers
                 # manager_name: customer
     firewalls:
@@ -20,7 +20,13 @@ security:
                 check_path: /login_check
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
-
+        api_doc:
+            pattern: ^/doc
+            security: false
+        refresh:
+            pattern:  ^/token/refresh
+            stateless: true
+            anonymous: true
         api:
             pattern:   ^/
             stateless: true
@@ -29,6 +35,8 @@ security:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
 
+
     access_control:
-        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/,      roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/token/refresh, roles: IS_AUTHENTICATED_ANONYMOUSLY }

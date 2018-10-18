@@ -13,6 +13,9 @@ use App\Handler\AddUserHandler;
 use App\Handler\DeleteUserHandler;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
+use Swagger\Annotations as SWG;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
 
 class UserController extends AbstractController
 {
@@ -24,8 +27,18 @@ class UserController extends AbstractController
      * @Rest\View(
      *     StatusCode = 200
      * )
-     * @Security("is_granted('ROLE_USER')")   
      * @Cache(expires="tomorrow")
+     *
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns the list of all users",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @SWG\Items(ref=@Model(type=User::class))
+     *     )
+     * )
+     * @Security("is_granted('ROLE_USER')") 
+     * @DocSecurity(name="Bearer")
      */
     public function list(EntityManagerInterface $manager)
     {
@@ -38,12 +51,29 @@ class UserController extends AbstractController
      * @Rest\Get(
      *     path = "/user/{id}",
      *     name = "user_show",
-     *     requirements = {"user_id"="\d+"}
+     *     requirements = {"id"="\d+"}
      * )
      * @Rest\View(
      *     StatusCode = 200
      * )
      * @Cache(expires="tomorrow")
+     * 
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns one user",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @SWG\Items(ref=@Model(type=User::class))
+     *     )
+     * )
+     * @SWG\Parameter(
+     *     name="id",
+     *     in="path",
+     *     type="integer",
+     *     description="The unique identifier of the user."
+     * )
+     * @Security("is_granted('ROLE_USER')") 
+     * @DocSecurity(name="Bearer")
      */
     public function show(User $user, EntityManagerInterface $manager)
     {
@@ -58,7 +88,17 @@ class UserController extends AbstractController
      * )
      * @Rest\View(StatusCode = 201)
      * @ParamConverter("user", converter="fos_rest.request_body")
-     * @Security("is_granted('ROLE_USER')")   
+     * 
+     * @SWG\Response(
+     *     response=201,
+     *     description="add one user",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @SWG\Items(ref=@Model(type=User::class))
+     *     )
+     * )  
+     * @Security("is_granted('ROLE_USER')") 
+     * @DocSecurity(name="Bearer")
      */
     public function add(User $user, AddUserHandler $handler, ConstraintViolationList $violations)
     {
@@ -71,9 +111,20 @@ class UserController extends AbstractController
 	 * @Rest\Delete(
      *     path = "/user/delete/{id}",
      *     name = "user_delete",
-     *     requirements = {"id"="\d+"}
+     *     requirements = {"user_id"="\d+"}
      * )
      * @Rest\View(StatusCode = 204)
+     *
+     * @SWG\Response(
+     *     response=204,
+     *     description="add one user",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @SWG\Items(ref=@Model(type=User::class))
+     *     )
+     * )  
+     * @Security("is_granted('ROLE_USER')") 
+     * @DocSecurity(name="Bearer")
      */
     public function delete(User $user, EntityManagerInterface $manager, DeleteUserHandler $handler)
     {

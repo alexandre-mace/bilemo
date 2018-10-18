@@ -5,6 +5,8 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Hateoas\Configuration\Annotation as Hateoas;
 use JMS\Serializer\Annotation as Serializer;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Swagger\Annotations as SWG;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -31,42 +33,49 @@ class Product
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @SWG\Property(type="integer", description="The unique identifier of the product.")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Serializer\Since("1.0")
+     * @SWG\Property(type="string", maxLength=255)
      */
     private $model;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Serializer\Since("1.0")
+     * @SWG\Property(type="string", maxLength=255)
      */
     private $brand;
 
     /**
      * @ORM\Column(type="text")
      * @Serializer\Since("1.0")
+     * @SWG\Property(type="text", maxLength=255)
      */
     private $description;
 
     /**
      * @ORM\Column(type="integer")
      * @Serializer\Since("1.0")
+     * @SWG\Property(type="integer")
      */
     private $stock;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Serializer\Since("1.0")
+     * @SWG\Property(type="string", maxLength=255)
      */
     private $color;
 
     /**
      * @ORM\Column(type="decimal", precision=6, scale=2)
      * @Serializer\Since("1.0")
+     * @SWG\Property(type="decimal")
      */
     private $price;
 

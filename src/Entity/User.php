@@ -7,6 +7,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Hateoas\Configuration\Annotation as Hateoas;
 use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Annotation\ExclusionPolicy;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Swagger\Annotations as SWG;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -54,6 +56,7 @@ class User
      * @ORM\Column(type="integer")
      * @Serializer\Since("1.0")
      * @Serializer\Expose()
+     * @SWG\Property(description="The unique identifier of the user.")
      */
     private $id;
 
@@ -65,12 +68,14 @@ class User
      * )
      * @Serializer\Since("1.0")
      * @Serializer\Expose()
+     * @SWG\Property(type="string", maxLength=255)
      */
     private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="users")
      * @ORM\JoinColumn(nullable=false)
+     * @SWG\Property(ref=@Model(type=Client::class))
      */
     private $client;
 

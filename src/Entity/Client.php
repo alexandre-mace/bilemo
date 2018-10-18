@@ -27,7 +27,7 @@ class Client implements UserInterface, \Serializable
      * @Serializer\Since("1.0")
      * @Serializer\Expose()
      */
-    private $name;
+    private $username;
 
     /**
      * @ORM\Column(type="string", length=64)
@@ -57,7 +57,7 @@ class Client implements UserInterface, \Serializable
 
     public function getUsername()
     {
-        return $this->name;
+        return $this->username;
     }
 
     public function getSalt()
@@ -141,9 +141,9 @@ class Client implements UserInterface, \Serializable
         return $this->id;
     }
 
-    public function setName(string $name): self
+    public function setUsername(string $username): self
     {
-        $this->name = $name;
+        $this->username = $username;
 
         return $this;
     }

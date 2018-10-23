@@ -12,20 +12,22 @@ class ProductControllerTest extends WebTestCase
 {
     public function testList()
     {
-        $client = self::createClient();
+        $client = static::createClient();
         $client->request(
             'POST',
             '/login_check',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
-            '{
-                "username": "sfr",
-                "password": "password"
-            }'
+            '{"username":"sfr", "password": "password"}'
         );
-        var_dump($client->getResponse()->getContent());die;
-        $this->assertTrue($client->getResponse()->isSuccessful());
+
+        $data = json_decode($client->getResponse()->getContent(), true);
+        var_dump($data);die;
+        $client = static::createClient();
+        $client->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $data['token']));
+
+        return $client;
     }
 
     public function testShow()

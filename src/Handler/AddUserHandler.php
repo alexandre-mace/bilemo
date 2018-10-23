@@ -9,13 +9,13 @@ use App\Service\ClientFinder;
 class AddUserHandler
 {
 	private $manager;
-	private $jsonFormExceptionHandler;
+	private $jsonExceptionHandler;
 	private $clientFinder;
 
-	public function __construct(EntityManagerInterface $manager, JsonFormExceptionHandler $jsonFormExceptionHandler, ClientFinder $clientFinder)
+	public function __construct(EntityManagerInterface $manager, JsonFormExceptionHandler $jsonExceptionHandler, ClientFinder $clientFinder)
 	{
 		$this->manager = $manager;
-		$this->jsonFormExceptionHandler = $jsonFormExceptionHandler;
+		$this->jsonExceptionHandler = $jsonExceptionHandler;
 		$this->clientFinder = $clientFinder;
 	}
 
@@ -23,7 +23,7 @@ class AddUserHandler
 	{		
 		$client = $this->clientFinder->find();
         $user->setClient($client);
-		$this->jsonFormExceptionHandler->handle($violations);
+		$this->jsonExceptionHandler->handle($violations);
         $this->manager->persist($user);
         $this->manager->flush();
         return true;

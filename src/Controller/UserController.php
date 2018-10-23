@@ -75,7 +75,7 @@ class UserController extends AbstractController
      * @Security("is_granted('ROLE_USER')") 
      * @DocSecurity(name="Bearer")
      */
-    public function show(User $user, EntityManagerInterface $manager)
+    public function show(User $user)
     {
         $this->denyAccessUnlessGranted('view', $user);
         return $user;
@@ -126,7 +126,7 @@ class UserController extends AbstractController
      * @Security("is_granted('ROLE_USER')") 
      * @DocSecurity(name="Bearer")
      */
-    public function delete(User $user, EntityManagerInterface $manager, DeleteUserHandler $handler)
+    public function delete(User $user, DeleteUserHandler $handler)
     {
         $handler->handle($user);
     }

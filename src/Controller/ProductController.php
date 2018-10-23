@@ -16,6 +16,7 @@ use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
 
 /**
  * @Cache(expires="tomorrow", public=true)
+ * @Security("is_granted('ROLE_USER')") 
  */
 class ProductController extends AbstractController
 {
@@ -36,7 +37,6 @@ class ProductController extends AbstractController
      *         @SWG\Items(ref=@Model(type=Product::class))
      *     )
      * )
-     * @Security("is_granted('ROLE_USER')") 
      * @DocSecurity(name="Bearer")
      */
     public function list(EntityManagerInterface $manager)
@@ -70,7 +70,6 @@ class ProductController extends AbstractController
      *     type="integer",
      *     description="The unique identifier of the product."
      * )
-     * @Security("is_granted('ROLE_USER')") 
      * @DocSecurity(name="Bearer")
      */
     public function show(Product $product)

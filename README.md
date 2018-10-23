@@ -19,7 +19,7 @@ Web Service with API REST, 7th project from OpenClassroom's class
 
 * Install dependencies.
 
-  `install update`
+  `composer install`
 
 ## Configuration
 * Customize the .env file

@@ -1,4 +1,4 @@
-# Snowtricks
+# BileMo
 
 Web Service with API REST, 7th project from OpenClassroom's class
 

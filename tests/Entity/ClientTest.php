@@ -11,7 +11,7 @@ class ClientTest extends TestCase
     public function testEntity()
     {
         $client = new Client();
-        $client->setName('name test');
+        $client->setUsername('name test');
         $client->setPassword('clientpassword test');
         $client->setIsActive(true);
 

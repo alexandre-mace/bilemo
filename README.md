@@ -3,46 +3,55 @@
 Web Service with API REST, 7th project from OpenClassroom's class
 
 ## Requirements 
-* MySQL : https://www.mysql.com/fr/
+*   [MySQL](https://www.mysql.com/fr/)
 
-* PHP : http://php.net/manual/fr/intro-whatis.php
+*   [PHP](http://php.net/manual/fr/intro-whatis.php)
 
-* Apache : https://www.apache.org/
+*   [Apache](https://www.apache.org/)
 
 ## Installation 
-* Clone the repository and open it.
+*   Clone the repository and open it.
 
 ```
-  git clone https://github.com/alexandre-mace/oc_p7.git
-  cd oc_p7
+  git clone https://github.com/alexandre-mace/oc_p8.git
+  cd oc_p8
 ```
 
-* Install dependencies.
+*   Install dependencies.
 
-  `composer install`
+```
+composer install
+```
 
 ## Configuration
-* Customize the .env file
+*   Customize the .env file
 
 #### doctrine
-  `DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name"`
+```
+DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name"
+```
 
-* Create database 
+*   Create database 
 
-  `php bin/console doctrine:database:create`
+```
+php bin/console doctrine:database:create
+```
 
-* Get tables 
+*   Get tables 
 
 ```
   php bin/console doctrine:make:migration
   php bin/console doctrine:migrations:migrate
 ```
 
-* Get data
+*   Get data
 
-  `php bin/console doctrine:fixtures:load`
+```
+php bin/console doctrine:fixtures:load
+```
 
 ## Tests
+*   run in console this command and results will show up in console
 ```
-* run in console `./bin/phpunit` and results will show up in console
+./bin/phpunit 
 ```

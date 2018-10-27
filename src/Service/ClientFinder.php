@@ -24,7 +24,7 @@ class ClientFinder
             ->getUsername();
         $client = $this->manager
             ->getRepository(Client::class)
-            ->findOneByName(array('name' => $clientName));
+            ->findOneByUsername(array('username' => $clientName));
         return $client;
     }
 }

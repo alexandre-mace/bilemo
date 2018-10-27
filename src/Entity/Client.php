@@ -86,7 +86,7 @@ class Client implements UserInterface, \Serializable
     {
         return serialize(array(
             $this->id,
-            $this->name,
+            $this->username,
             $this->password,
             // see section on salt below
             // $this->salt,
@@ -98,7 +98,7 @@ class Client implements UserInterface, \Serializable
     {
         list (
             $this->id,
-            $this->name,
+            $this->username,
             $this->password,
             // see section on salt below
             // $this->salt

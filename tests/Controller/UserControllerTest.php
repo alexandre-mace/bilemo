@@ -1,0 +1,51 @@
+<?php
+
+// Tests/Controller/UserControllerTest.php
+
+namespace App\Tests\Controller;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
+class UserControllerTest extends WebTestCase
+{
+    public function createAuthenticatedClient()
+    {
+        $client = static::createClient();
+        $client->request(
+            'POST',
+            '/login_check',
+            array(),
+            array(),
+            array('CONTENT_TYPE' => 'application/json'),
+            '{"username":"sfr", "password": "password"}'
+        );
+
+        $data = json_decode($client->getResponse()->getContent(), true);
+        $client = static::createClient();
+        $client->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $data['token']));
+
+        return $client;
+    }
+
+    public function testList()
+    {
+        $client = $this->createAuthenticatedClient();
+        $client->request('GET', '/users');
+        $this->assertTrue($client->getResponse()->isSuccessful());
+    }
+    public function testAdd()
+    {
+        $client = $this->createAuthenticatedClient();
+        $client->request(
+            'POST',
+            '/user/add',
+            array(),
+            array(),
+            array('CONTENT_TYPE' => 'application/json'),
+            '{"name": "userTest"}'
+        );
+        $this->assertSame(201, $client->getResponse()->getStatusCode());
+    }
+}

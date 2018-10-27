@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ProductControllerTest extends WebTestCase
 {
-    public function testList()
+    public function createAuthenticatedClient()
     {
         $client = static::createClient();
         $client->request(
@@ -23,14 +23,16 @@ class ProductControllerTest extends WebTestCase
         );
 
         $data = json_decode($client->getResponse()->getContent(), true);
-        var_dump($data);die;
         $client = static::createClient();
         $client->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $data['token']));
 
         return $client;
     }
 
-    public function testShow()
+    public function testList()
     {
+        $client = $this->createAuthenticatedClient();
+        $client->request('GET', '/products');
+        $this->assertTrue($client->getResponse()->isSuccessful());
     }
 }

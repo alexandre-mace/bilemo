@@ -39,6 +39,6 @@ DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name"
 		$ php bin/console doctrine:fixtures:load
 
 ## Tests
-*   run in console this command and results will show up in console
+*   run this command in console  and results will show up in console
 
 		$ ./bin/phpunit 

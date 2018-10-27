@@ -10,16 +10,14 @@ Web Service with API REST, 7th project from OpenClassroom's class
 ## Installation 
 *   Clone the repository and open it.
 
-````
-git clone https://github.com/alexandre-mace/oc_p8.git
-cd oc_p8
-````
+$ git clone https://github.com/alexandre-mace/oc_p8.git
+$ cd oc_p8
 
 *   Install dependencies.
 
-```
-composer install
-```
+
+$ composer install
+
 
 ## Configuration
 *   Customize the .env file

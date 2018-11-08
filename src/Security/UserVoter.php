@@ -45,8 +45,6 @@ class UserVoter extends Voter
             case self::DELETE:
                 return $this->hasRight($user, $client);
         }
-
-        throw new \LogicException('This code should not be reached!');
     }
 
     private function hasRight(User $user, Client $client)

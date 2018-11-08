@@ -1,0 +1,25 @@
+App\Entity\Client:
+    client_test:
+        username: 'test'
+        password: 'test'
+
+    client_1:
+      username: "fnac"
+      password: 'password'
+
+    client_2:
+      username: "darty"
+      password: 'password'
+
+    client_3:
+      username: "rue_du_commerce"
+      password: 'password'
+
+    client_4:
+      username: "free"
+      password: 'password'
+
+    client_5:
+      username: "sfr"
+      password: 'password'
+

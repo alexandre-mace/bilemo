@@ -1,0 +1,5 @@
+App\Entity\User:
+    user_test:
+        name: 'test_voter'
+        client: '@client_1'
+

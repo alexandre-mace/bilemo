@@ -35,6 +35,7 @@ class UserControllerTest extends WebTestCase
         $client->request('GET', '/users');
         $this->assertTrue($client->getResponse()->isSuccessful());
     }
+    
     public function testAdd()
     {
         $client = $this->createAuthenticatedClient();
@@ -44,8 +45,42 @@ class UserControllerTest extends WebTestCase
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
-            '{"name": "userTest"}'
+            '{"name": "test"}'
         );
         $this->assertSame(201, $client->getResponse()->getStatusCode());
+    }
+    public function testAddFail()
+    {
+        $client = $this->createAuthenticatedClient();
+        $client->request(
+            'POST',
+            '/user/add',
+            array(),
+            array(),
+            array('CONTENT_TYPE' => 'application/json'),
+            '{"name": ""}'
+        );
+        $this->assertSame(400, $client->getResponse()->getStatusCode());
+        $this->assertContains('The JSON sent contains invalid data', $client->getResponse()->getContent());
+    }
+    public function testShow()
+    {
+        $client = $this->createAuthenticatedClient();
+        $client->request('GET', '/user/2');
+        $this->assertTrue($client->getResponse()->isSuccessful());  
+        $this->assertContains('test', $client->getResponse()->getContent());
+    }
+    public function testDelete()
+    {
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', '/user/delete/2');
+        $this->assertEquals(204, $client->getResponse()->getStatusCode());
+    }
+
+    public function testDeleteFail()
+    {
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', '/user/delete/1');
+        $this->assertEquals(403, $client->getResponse()->getStatusCode());
     }
 }

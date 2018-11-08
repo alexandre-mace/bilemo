@@ -35,4 +35,12 @@ class ProductControllerTest extends WebTestCase
         $client->request('GET', '/products');
         $this->assertTrue($client->getResponse()->isSuccessful());
     }
+
+    public function testShow()
+    {
+        $client = $this->createAuthenticatedClient();
+        $client->request('GET', '/product/1');
+        $this->assertTrue($client->getResponse()->isSuccessful());  
+        $this->assertContains('test', $client->getResponse()->getContent());
+    }
 }

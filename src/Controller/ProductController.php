@@ -6,38 +6,74 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
-use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use FOS\RestBundle\Controller\Annotations as Rest;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
+use Swagger\Annotations as SWG;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
 
+/**
+ * @Cache(expires="tomorrow", public=true)
+ * @Security("is_granted('ROLE_USER')") 
+ */
 class ProductController extends AbstractController
 {
     /**
-     * @Route("/product/{id}", name="product_show")
-     */
-    public function show(Product $product)
-    {
-		$serializer = SerializerBuilder::create()->build();
-    	$data = $serializer->serialize($product, 'json');
-
-    	$response = new Response($data);
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
-    }
-
-    /**
-     * @Route("/products", name="product_list")
+     * @Rest\Get(
+     *     path = "/products",
+     *     name = "product_list",
+     * )
+     * @Rest\View(
+     *     StatusCode = 200
+     * )
+     *
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns the list of all products",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @SWG\Items(ref=@Model(type=Product::class))
+     *     )
+     * )
+     * @DocSecurity(name="Bearer")
      */
     public function list(EntityManagerInterface $manager)
     {
     	$products = $manager->getRepository(Product::class)->findAll();
+        return $products;
+    }
     	
-    	$serializer = SerializerBuilder::create()->build();
-    	$data = $serializer->serialize($products, 'json');
-
-    	$response = new Response($data);
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
+    /**
+     * 
+     * @Rest\Get(
+     *     path = "/product/{id}",
+     *     name = "product_show",
+     *     requirements = {"id"="\d+"}
+     * )
+     * @Rest\View(
+     *     StatusCode = 200
+     * )
+     * 
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns one product",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @SWG\Items(ref=@Model(type=Product::class))
+     *     )
+     * )
+     * @SWG\Parameter(
+     *     name="id",
+     *     in="path",
+     *     type="integer",
+     *     description="The unique identifier of the product."
+     * )
+     * @DocSecurity(name="Bearer")
+     */
+    public function show(Product $product)
+    {
+        return $product;
     }
 }

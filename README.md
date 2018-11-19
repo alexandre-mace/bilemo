@@ -1,5 +1,7 @@
 # BileMo
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7fdb69ea6db94b97867beb640e660c57)](https://app.codacy.com/app/codacy_alexandre-mace/oc_p7?utm_source=github.com&utm_medium=referral&utm_content=alexandre-mace/oc_p7&utm_campaign=Badge_Grade_Dashboard)
+
 Web Service with API REST, 7th project from OpenClassroom's class
 
 ## Requirements 

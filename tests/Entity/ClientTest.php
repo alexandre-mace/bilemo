@@ -14,7 +14,10 @@ class ClientTest extends TestCase
         $client->setUsername('name test');
         $client->setPassword('clientpassword test');
         $client->setIsActive(true);
+        $list = $client->serialize();
 
+        $this->assertNotNull($list);
+        $client->unserialize($list);
         $this->assertEquals('name test', $client->getUsername());
         $this->assertEquals('clientpassword test', $client->getPassword());
         $this->assertEquals(true, $client->getIsActive());
@@ -27,5 +30,7 @@ class ClientTest extends TestCase
         $client = new Client();        
         $client->addUser($user);
         $this->assertEquals($user, $client->getUsers()->first());
+        $client->removeUser($user);
+        $this->assertArrayNotHasKey(0, $client->getUsers());
     }
 }

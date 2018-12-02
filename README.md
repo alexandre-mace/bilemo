@@ -1,5 +1,7 @@
 # BileMo
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/606914a87f44449daddd7bb85c79cc2f)](https://www.codacy.com/app/codacy_alexandre-mace/oc_p7?utm_source=github.com&utm_medium=referral&utm_content=alexandre-mace/oc_p7&utm_campaign=Badge_Coverage)
+
 Web Service with API REST, 7th project from OpenClassroom's class
 
 ## Requirements 

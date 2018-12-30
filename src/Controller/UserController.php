@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Entity\Client;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\Controller\FOSRestController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
 use App\Handler\AddUserHandler;
 use App\Handler\DeleteUserHandler;
@@ -17,7 +19,7 @@ use Swagger\Annotations as SWG;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security as DocSecurity;
 
-class UserController extends AbstractController
+class UserController extends FOSRestController
 {
     /**
      * @Rest\Get(
@@ -103,7 +105,7 @@ class UserController extends AbstractController
     public function add(User $user, AddUserHandler $handler, ConstraintViolationList $violations)
     {
         if ($handler->handle($violations, $user)) {
-            return $user;
+            return $this->view($user, Response::HTTP_CREATED, ['Location' => $this->generateUrl('user_show', ['id' => $user->getId(), UrlGeneratorInterface::ABSOLUTE_URL])]);
         }
     }
 

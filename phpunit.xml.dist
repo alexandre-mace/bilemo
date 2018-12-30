@@ -5,7 +5,7 @@
          xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/6.5/phpunit.xsd"
          backupGlobals="false"
          colors="true"
-         bootstrap="vendor/autoload.php"
+         bootstrap="phpunit_bootstrap.php"
 >
     <php>
         <ini name="error_reporting" value="-1" />
@@ -18,9 +18,7 @@
         <env name="DATABASE_URL" value="mysql://localhost:localhost@127.0.0.1:3306/bilemo"/>
 
         <!-- ###+ lexik/jwt-authentication-bundle ### -->
-        <env name="JWT_SECRET_KEY" value="%kernel.project_dir%/config/jwt/private.pem"/>
-        <env name="JWT_PUBLIC_KEY" value="%kernel.project_dir%/config/jwt/public.pem"/>
-        <env name="JWT_PASSPHRASE" value="b72dd5020d9ca1ce679186f5a8d38e3a"/>
+        <env name="PASSPHRASE" value="[your-passphrase]"/>
         <!-- ###- lexik/jwt-authentication-bundle ### -->
     </php>
 

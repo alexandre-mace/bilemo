@@ -12,36 +12,55 @@ Web Service with API REST, 7th project from OpenClassroom's class
 
 ## Installation 
 *   Clone the repository and open it.
-
-		$ git clone https://github.com/alexandre-mace/oc_p8.git
-		$ cd oc_p8
+``` bash
+$ git clone https://github.com/alexandre-mace/oc_p8.git
+$ cd oc_p8
+```
 
 *   Install dependencies.
-		
-		$ composer install
+``` bash
+$ composer install
+```
 
 ## Configuration
-*   Customize the .env file
 
 #### doctrine
+*   Customize the .env file
 ```
 DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name"
 ```
 
 *   Create database 
-
-		$ php bin/console doctrine:database:create
+``` bash
+$ php bin/console doctrine:database:create
+```
 
 *   Get tables 
-
-		$ php bin/console doctrine:make:migration
-		$ php bin/console doctrine:migrations:migrate
-
+``` bash
+$ php bin/console doctrine:make:migration
+$ php bin/console doctrine:migrations:migrate
+```
 *   Get data
+``` bash
+$ php bin/console hautelook:fixtures:load
+```
 
-		$ php bin/console doctrine:fixtures:load
-
+### LexikJWTAuthenticationBundle
+* Generate the SSH keys
+``` bash
+$ mkdir config/jwt
+$ openssl genrsa -out config/jwt/private.pem -aes256 4096
+$ openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
+```
+* Create a phpunit.xml file at the project root and copy the phpunit.xml.dist information in it
+* Customize it with the password used to generate the keys
+```
+<env name="PASSPHRASE" value="[your-passphrase]"/>
+```
 ## Tests
+* Configure the phpunit_bootstrap.php file at the project root by modifying his last line with the last line of vendor/autoload.php
 *   run this command in console  and results will show up in console
+``` bash
+$ ./bin/phpunit 
+```
 
-		$ ./bin/phpunit 

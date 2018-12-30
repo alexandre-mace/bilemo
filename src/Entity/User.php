@@ -69,13 +69,14 @@ class User
      * @Serializer\Since("1.0")
      * @Serializer\Expose()
      * @SWG\Property(type="string", maxLength=255)
+     * @SWG\Property(description="The name of the user.")
      */
     private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="users")
      * @ORM\JoinColumn(nullable=false)
-     * @SWG\Property(ref=@Model(type=Client::class))
+     * @SWG\Property(ref=@Model(type=Client::class), description="The client related to the user")
      */
     private $client;
 

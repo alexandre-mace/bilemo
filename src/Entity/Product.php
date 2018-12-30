@@ -40,42 +40,42 @@ class Product
     /**
      * @ORM\Column(type="string", length=255)
      * @Serializer\Since("1.0")
-     * @SWG\Property(type="string", maxLength=255)
+     * @SWG\Property(type="string", maxLength=255, description="The model of the product.")
      */
     private $model;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Serializer\Since("1.0")
-     * @SWG\Property(type="string", maxLength=255)
+     * @SWG\Property(type="string", maxLength=255, description="The brand of the product.")
      */
     private $brand;
 
     /**
      * @ORM\Column(type="text")
      * @Serializer\Since("1.0")
-     * @SWG\Property(type="text", maxLength=255)
+     * @SWG\Property(type="string", maxLength=255, description="The description of the product.")
      */
     private $description;
 
     /**
      * @ORM\Column(type="integer")
      * @Serializer\Since("1.0")
-     * @SWG\Property(type="integer")
+     * @SWG\Property(type="integer", description="The stock of the product.")
      */
     private $stock;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Serializer\Since("1.0")
-     * @SWG\Property(type="string", maxLength=255)
+     * @SWG\Property(type="string", maxLength=255, description="The color of the product")
      */
     private $color;
 
     /**
      * @ORM\Column(type="decimal", precision=6, scale=2)
      * @Serializer\Since("1.0")
-     * @SWG\Property(type="decimal")
+     * @SWG\Property(type="float", description="The price of the product")
      */
     private $price;
 

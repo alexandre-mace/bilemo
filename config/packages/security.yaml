@@ -11,7 +11,6 @@ security:
                 # if you're using multiple entity managers
                 # manager_name: customer
     firewalls:
-
         login:
             pattern:  ^/login
             stateless: true
@@ -23,10 +22,6 @@ security:
         api_doc:
             pattern: ^/doc
             security: false
-        refresh:
-            pattern:  ^/token/refresh
-            stateless: true
-            anonymous: true
         api:
             pattern:   ^/
             stateless: true
@@ -39,4 +34,3 @@ security:
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/,      roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/token/refresh, roles: IS_AUTHENTICATED_ANONYMOUSLY }

@@ -8,4 +8,4 @@ passthru('php bin/console doctrine:database:drop --if-exists --force');
 passthru('php bin/console doctrine:database:create');
 passthru('php bin/console doctrine:schema:update --force');
 passthru('php bin/console hautelook:fixtures:load -n');
-return ComposerAutoloaderInitba1b223fa8e6d5d82ffb0453c58385fe::getLoader();
+return ComposerAutoloaderInit255042eac12b8cebc233eba1ecd4243c::getLoader();
